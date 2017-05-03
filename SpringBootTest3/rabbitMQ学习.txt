@@ -1,0 +1,126 @@
+开发遇到的问题：
+1）信息的发送者和接收者如何维持这个连接，如果一方的连接中断，这段时间的数据如何方式丢失
+2）如何降低发送者和接收者的耦合度
+3）如何让Priority高的接收者先接受数据
+4）如何做到load banlance？有效均衡接收者的负载
+5）如何有效的将数据发送到相关的接收者？也就是说接收者subscribe不同的数据，如何做有效的filter
+6）如何做到可扩展，甚至将这个通信模块发到cluster上
+7）如何保证接收者接收到了完整、正确的数据
+AMDQ协议解决了以上的问题，而RabbitMQ实现了AMQP。
+
+
+RabbitMQ介绍：
+默认服务监听在 5672 端口上(带上 SSL 默认在 5671 上).
+
+
+send message-->exchanges-->queues-->receive message
+概念：exchanges，queues，bindings，Connection，Channels
+RabbitMQ , 是一个使用 erlang 编写的 AMQP (高级消息队列协议) 的服务实现. 简单来说, 就是一个功能强大的消息队列服务.
+流程上是, 发消息者 把消息放到 队列 中去, 然后 收消息者 从 队列 中取出消息.
+RabbitMQ的流程：发消息者 把消息给 交换器 , 交换器 根据调度策略再把消息再给 队列 .
+
+5种角色：
+Producing , 生产者, 产生消息的角色.
+Exchange , 交换器, 在得到生产者的消息后, 把消息扔到队列的角色.
+Queue , 队列, 消息暂时呆的地方.
+Consuming , 消费者, 把消息从队列中取出的角色.
+消息 Message , RabbitMQ 中的消息有自己的一系列属性, 某些属性对信息流有直接影响.
+
+基本形式：
+把消息放到队列当中, 等待下一步的处理步骤：
+获取连接
+从连接上获取一个channel，类似于数据库访问上获取一个cursor
+声明一个exchange(自会创建一次)
+把queue绑定exchange上
+向指定的exchange发送一条消息
+
+开始接收服务器的消息：
+获取连接
+从连接上拿到 channel
+声明需要的 queue
+定义一个从指定 queue 获取消息的回调处理
+开始接收消息
+
+
+RabbitMQ 即一个消息队列，主要是用来实现应用程序的异步和解耦，同时也能起到消息缓冲，消息分发的作用。
+最主要的作用是：解耦
+RabbitMQ是实现AMQP（高级消息队列协议）的消息中间件的一种，最初起源于金融系统，用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不俗
+队列服务：发消息者、队列、收消息者
+RabbitMQ在发消息者和队列之间加入了交换器(Exchange)
+概念：虚拟主机、交换机、队列、绑定
+
+
+交换机：
+主要功能：接收消息并且转发到绑定的队列，交换机不存储消息，在启用ack模式后，交换机找不到队列会返回错误
+4种类型：Direct、topic、Headers、Fanout
+direct：其行为是"先匹配，在投送"，即在绑定设定一个routing_key，消息的routing_key匹配时才会被交换器投送到绑定的队列中
+topic：按规则转发消息
+	路由键必须是一串字符，用句号（.）
+	*表示一个词，而#表示零个或多个词.
+Headers：设置Header attribute参数类型的交换器
+Fanout：转发消息到所有绑定的队列， 消息广播的模式
+
+springboot集成RabbitMQ：
+1》配置pom包：spring-boot-starter-amqp的支持
+2》配置rabbitMQ基本信息：application.properties
+spring.application.name=spirng-boot-rabbitmq
+
+spring.rabbitmq.host=localhost
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+3》队列配置
+4》发送者
+ 注：发送者和接收者的queue name必须一致，不然不能接收
+5》接收者
+6》测试
+
+多对多使用：N个接收者或者N个发送者和N个接收者
+ 结论：一对多一样，接收端仍然会均匀接收到消息
+
+
+Topic Exchange交换器：
+@Bean
+Binding bindingExchangeMessage(Queue queueMessage, TopicExchange exchange) {
+    return BindingBuilder.bind(queueMessage).to(exchange).with("topic.message");
+}
+
+@Bean
+Binding bindingExchangeMessages(Queue queueMessages, TopicExchange exchange) {
+    return BindingBuilder.bind(queueMessages).to(exchange).with("topic.#");
+}
+
+public void send1() {
+	this.rabbitTemplate.convertAndSend("exchange", "topic.message", context);
+}
+public void send2() {
+	this.rabbitTemplate.convertAndSend("exchange", "topic.messages", context);
+}
+
+结论：
+	发送send1会匹配到topic.#和topic.message 两个Receiver都可以收到消息
+	发送send2只有topic.#可以匹配所有只有Receiver2监听到消息
+
+Fanout Exchange交换器：
+@Bean
+public Queue AMessage() {
+    return new Queue("fanout.A");
+}
+@Bean
+Binding bindingExchangeA(Queue AMessage,FanoutExchange fanoutExchange) {
+    return BindingBuilder.bind(AMessage).to(fanoutExchange);
+}
+//省略B、C队列
+
+这里使用了A、B、C三个队列绑定到Fanout交换机上面，发送端的routing_key写任何字符都会被忽略：
+public void send() {
+	String context = "hi, fanout msg ";
+	System.out.println("Sender : " + context);
+	this.rabbitTemplate.convertAndSend("fanoutExchange","", context);
+}
+
+
+
+
+
+
