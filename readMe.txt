@@ -15,4 +15,6 @@ SpringBootTest3：springboot整合RabbitMQ：
  topic交换器
  fanout交换器
 
+SpringBootTest4：spring boot 定时任务测试
+  cron表达式的编写
 
