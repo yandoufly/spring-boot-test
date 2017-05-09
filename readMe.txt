@@ -1,5 +1,7 @@
 ﻿HelloSpringBoot：spring boot 整合thmeleaf前端框架小案例
 
+HelloSpringBoot2：spring boot 整合FreeMarker前端框架小案例
+
 SpringBootTest1：spring boot 整合mybatis对用户表的各项基本操作
 
 SpringBootTest2：spring boot 整合spring data jpa对用户表的各项基本操作
