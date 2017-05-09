@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: SpringBootTest5
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: suerfly
+Implementation-Vendor-Id: com.yjy.mybatisplus
+Build-Jdk: 1.8.0_25
+Implementation-URL: http://projects.spring.io/spring-boot/SpringBootTe
+ st5/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

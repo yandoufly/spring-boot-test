@@ -1,4 +1,4 @@
-HelloSpringBoot：spring boot 整合thmeleaf前端框架小案例
+﻿HelloSpringBoot：spring boot 整合thmeleaf前端框架小案例
 
 SpringBootTest1：spring boot 整合mybatis对用户表的各项基本操作
 
@@ -17,4 +17,8 @@ SpringBootTest3：springboot整合RabbitMQ：
 
 SpringBootTest4：spring boot 定时任务测试
   cron表达式的编写
+
+
+SpringBootTest5：spring boot 整合mybatisplus插件
+  mybatis自动封装相关dao层方法
 

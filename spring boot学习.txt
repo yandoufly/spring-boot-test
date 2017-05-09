@@ -1,3 +1,39 @@
+﻿pom.xml配置：
+spring-boot-starter：核心模块，包括自动配置支持、日志和YAML
+spring-boot-starter-test：测试模块，包括JUnit、Hamcrest、Mockito
+引入Web模块，需添加spring-boot-starter-web模块
+
+静态资源访问：
+Spring Boot默认提供静态资源目录位置需置于classpath下，目录名需符合如下规则：
+  /static 或者 /public 或 /resource 或 /META-INF/resources
+例：在src/main/resources/目录下创建static，在该位置加入abc.jpg图片，访问http://localhost:8080/abc.jpg能看到文件
+
+模板引擎：
+它们默认的模板配置路径：src/main/resources/templates
+可以在application.properties修改thmeleaf默认配置
+
+结构工程：
+实体（Entity）与数据访问层（Repository）置于：com.yjy.myproject.domain
+逻辑层(Service) 置于：com.yjy.myproject.service
+Web层（web）置于：com.example.myproject.web
+
+核心注解：@Controller,@RestController,RequestMapping
+参数注解：@PathVariable,@ModelAttribute,@RequestParam
+
+Spring Boot中使用Swagger2构建强大的RESTful API文档：
+get	/users		获取用户列表
+post	/users		创建用户
+delete	/users/{id}	删除用户
+get	/users/{id}	获取用户详细信息
+put	/users/{id}	更新用户详细信息
+
+
+日志级别 — ERROR, WARN, INFO, DEBUG or TRACE
+
+统一异常处理：http://blog.didispace.com/springbootexception/
+
+Spring Boot中使用@Async实现异步调用
+
 spring boot 整合mybatis 扫描entity包方式：
 	方式一：在application.properties中配置：mybatis.type-aliases-package=com.yjy.entity
 	方式二：在Application类上配置：@MapperScan("com.yjy.mapper")
