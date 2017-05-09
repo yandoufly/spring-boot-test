@@ -26,3 +26,4 @@ SpringBootTest4：spring boot 定时任务测试
 SpringBootTest5：spring boot 整合mybatisplus插件
   mybatis自动封装相关dao层方法
 
+SpringBootTest6：spring boot 统一异常处理
