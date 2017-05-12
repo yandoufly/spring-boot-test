@@ -29,3 +29,9 @@ SpringBootTest5：spring boot 整合mybatisplus插件
 SpringBootTest6：spring boot 统一异常处理
 
 SpringBootTest7：spring boot文件上传/下载及多文件上传
+
+SpringBootTest8：spring boot mail邮件发送测试
+  测试发送内容sendSimpleEmail()
+  测试发送附件sendAttachmentsEmail()
+  邮件中使用静态资源sendInlineMail()
+  测试模板邮件:freemarker sendTemplateMail()
