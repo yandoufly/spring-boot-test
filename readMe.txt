@@ -38,3 +38,5 @@ SpringBootTest8：spring boot mail邮件发送测试
 
 SpringBootTest9：spring boot 使用AOP统一处理Web请求日志
 
+SpringBootTest10：spring boot整合spring security
+
