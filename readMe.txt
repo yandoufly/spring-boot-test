@@ -35,6 +35,7 @@ SpringBootTest8：spring boot mail邮件发送测试
   测试发送附件sendAttachmentsEmail()
   邮件中使用静态资源sendInlineMail()
   测试模板邮件:freemarker sendTemplateMail()
+  测试模板邮件：thymeleaf sendTemplateMail2()
 
 SpringBootTest9：spring boot 使用AOP统一处理Web请求日志
 

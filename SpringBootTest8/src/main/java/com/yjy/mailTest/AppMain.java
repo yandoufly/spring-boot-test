@@ -2,16 +2,15 @@ package com.yjy.mailTest;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafTemplateAvailabilityProvider;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,8 +19,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.spring4.expression.Themes;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import freemarker.template.Template;
 
@@ -33,6 +32,9 @@ public class AppMain {
 
 	@Autowired
 	private FreeMarkerConfigurer freeMarkerConfigurer;
+	
+	@Autowired
+	private SpringTemplateEngine templateEngine;
 
 	/* 测试发送内容 */
 	@Test
@@ -112,6 +114,26 @@ public class AppMain {
 		String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 		helper.setText(html, true);
 
+		mailSender.send(mimeMessage);
+	}
+	
+	/*测试模板邮件：thymeleaf*/
+	@Test
+	public void sendTemplateMail2() throws Exception {
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+		// 基本设置.
+		helper.setFrom("326015540@qq.com");// 发送者.
+		helper.setTo("447865628@qq.com");// 接收者.
+		helper.setSubject("模板邮件（邮件主题）");// 邮件主题.
+		
+		Context context = new Context(Locale.CHINA);
+		Object datas;
+		context.setVariable("name", "admin");
+		String html = templateEngine.process("email", context);
+		helper.setText(html, true);
+		
 		mailSender.send(mimeMessage);
 	}
 }

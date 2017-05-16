@@ -306,7 +306,45 @@ URL路径：
  <!-- Will produce 'http://localhost:8080/standard/unread' (plus rewriting) -->
  <a  th:href="@{/standard/{type}(type=${type})}">view</a>  
 
+变量表达式：
+${} 与OGNL表达式类似
+*{} 一般与th:object配合使用
+<div th:object="${session.user}">
+	firstName:<span th:text="*{firstName}">FirstName</span>
+</div>
 
+链接表达式：
+1）绝对URL：
+
+2）上下文相关URL
+例如：http://localhost:8080/myapp <a th:href="@{/order/list}"></a> 路径是：<a href="/myapp/order/list"></a>
+说明：“/”表示从应用程序根路径开始访问，去掉“/”表示相对路径
+
+3）相对于服务器URL：连接到同一服务器不同应用程序中
+例如：<a th:href="@{~/billing-app/showDetails.htm}"></a> 路径是：<a href="/billing-app/showDetails.htm"></a>
+说明：当前应用程序的上下文myapp将被忽略
+
+4）协议相对URL：
+
+5）带参数URL：
+例如：<a th:href="@{/order/details(id=3)}"></a> 路径是：<a href="/order/details?id=3"></a>
+	<a th:href="@{/order/details(id=3,action='show_all')}"></a> 路径是：<a href="/order/details?id=3&action=show_all"></a>
+
+
+连接符：使用“+”表示，其中特殊：${}还可以用符号“|”
+例如：
+<span th:text="|Welcome to our application, ${user.name}!|">
+<span th:text="'Welcome to our application, ' + ${user.name} + '!'">
+<span th:text="${onevar} + ' ' + |${twovar}, ${threevar}|">
+
+th:text属性：用“+”符号，若是变量表达式也可以用“|”符号
+th:utext属性：将字符串里面的样式显示
+th:attr属性：用于设置其他属性的值;可设置多个属性的值，以逗号隔开
+例如：
+<form action="aa.html" th:attr="action=@{/aa}"></form>
+<img src="../../images/logo.jpg" th:attr="scr=@{/images/logo.jpg},title=#{logo},alt=#{logo}">
+
+th:each属性：用于迭代循环，语法th:each="obj,iterStat:${objList}"
 	
 
 5. JPA的使用：
