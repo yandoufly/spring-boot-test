@@ -1,0 +1,19 @@
+1. 配置jar包：
+spring-boot-starter
+spring-boot-starter-test
+spring-boot-starter-web
+spring-boot-starter-redis
+
+2. 测试StringRedis：
+	1）新建StringRedisController类
+	2）启动redis服务器，启动application类
+	3）输入：http://localhost:8080/set?key=yjy&&value=1001
+	4)在此输入：http://localhost:8080/get?key=yjy
+
+3.测试ObjectRedis：
+	1）新建Person实体类，与对应的PersonDao
+	2）新建ObjectRedisController类
+	3）启动application类
+	4）输入：http://localhost:8080/setPerson?id=2&&name=lxh2&&age=2
+	5）再次输入：http://localhost:8080/getPerson?id=2
+

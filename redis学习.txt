@@ -1,0 +1,115 @@
+教程：
+http://www.yiibai.com/redis/
+
+redis介绍：
+1）redis是一个完全开源的key-value内存数据库
+2）通常被认为是一个数据结构服务器，支持5种数据结构
+3）redis是一个开源，高级的键值存储和一个适合的解决方案，用于构建高性能，可扩展的web应用程序
+
+redis的优点：
+异常快、支持丰富的数据类型、操作具有原子性、多实用工具
+
+
+
+redis在windows安装教程：
+详细教程：http://blog.csdn.net/baidu_15060875/article/details/54970663
+1、下载地址[Redis-x64-3.2.100.zip]：https://github.com/MSOpenTech/redis/releases
+
+2、启动redis：
+将文件解压到:D:\Program Files\redis中
+呼出cmd，切换到D:\Program Files\redis中
+>D:
+>cd D:\Program Files\redis
+>redis-server redis.windows.conf   #表示启动redis
+
+3、设置服务命令：
+呼出cmd，切换到切换到D:\Program Files\redis中
+>D:
+>cd D:\Program Files\redis
+>redis-server --service-install redis.windows-service.conf --loglevel verbose
+验证：打开“任务管理器”，切换到“服务”，点击下方的“打开服务”，查看set是否存在“Redis”这服务。
+
+4、常用命令：
+卸载服务：redis-server --service-uninstall
+开启服务：redis-server --service-start
+停止服务：redis-server --service-stop
+
+4、测试：呼出cmd
+>切换到D盘，cd D:\Program Files\redis
+>redis-server --service-start  #启动服务器
+>redis-cli.exe -h 127.0.0.1 -p 6379 #启动客户端
+>set mykey myValue #设置mykey的值为myValue
+>get mykey  #会在下面输出mykey的值
+
+
+Redis数据类型：
+教程链接：http://qifuguang.me/2015/09/29/Redis
+支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
+String类型：
+  set name "yjy.com"  //set存储name
+  get name //get得到name
+
+散列HashMap:
+  HMSET key field1 value1 [field2 values]  //存入
+  HMSET key field1 [field2]  //取出
+
+列表List：
+  LPUSH key value   //LPUSH 向列表左端添加元素
+  LINDEX key index  //获取指定索引的元素值
+
+集合Set：
+
+有续集合zset：
+
+
+redisdesktop桌面管理工具：
+
+redis命令：
+Redis命令是用于在Redis服务器上执行一些操作。
+$ redis-cli  //连接到您的本地Redis服务器
+$ ping //检查服务器是否正在运行
+$ redis-cli -h host -p port -a password //在远程服务器上运行命令
+
+redis文件夹：
+redis-benchmark.exe         #基准测试
+redis-check-aof.exe         # aof
+redischeck-dump.exe        # dump
+redis-cli.exe               # 客户端
+redis-server.exe            # 服务器
+redis.windows.conf          # 配置文件
+
+
+java连接redis：
+1》导入jar包：jedis.jar
+2》测试
+Jedis jedis = new Jedis("localhost");
+System.out.println("Server is running: "+jedis.ping()); 
+
+jedis.set("tutorialname", "Redis tutorial"); //测试字符串
+System.out.println("Stored string in redis:: "+ jedis.get("tutorialname")); 
+jedis.append("tutorialname","jarorwar");  //向后添加字符串
+System.out.println("Stored string in redis:: "+ jedis.get("tutorialname")); 
+
+//jedis操作List
+jedis.lpush("tutorial-list", "Redis"); 
+jedis.lpush("tutorial-list", "Mongodb"); 
+List<String> list = jedis.lrange("tutorial-list", 0 ,5); 
+
+//jedis操作Map
+Map<String,String> user=new HashMap<String,String>(); 
+user.put("name","minxr"); 
+user.put("pwd","password"); 
+jedis.hmset("user",user); 
+List<String> rsmap = jedis.hmget("user", "name"); 
+System.out.println(rsmap);
+
+//jedis操作Set 
+jedis.sadd("sname","minxr"); 
+jedis.sadd("sname","jarorwar"); 
+System.out.println(jedis.smembers("sname"));//获取所有加入的value 
+System.out.println(jedis.sismember("sname", "minxr"));//判断 minxr 是否是sname集合的元素 
+System.out.println(jedis.srandmember("sname")); 
+System.out.println(jedis.scard("sname"));//返回集合的元素个数 
+
+
+
