@@ -42,3 +42,5 @@ SpringBootTest9：spring boot 使用AOP统一处理Web请求日志
 SpringBootTest10：spring boot整合spring security
 
 SpringBootTest11：spring boot整合redis开发
+
+SpringBootTest12：spring boot直接使用html页面，使用js填充前台数据

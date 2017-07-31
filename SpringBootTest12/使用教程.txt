@@ -1,0 +1,2 @@
+1、运行application.java中main方法
+2、在浏览器输入：http://localhost:8088/person/index.html
