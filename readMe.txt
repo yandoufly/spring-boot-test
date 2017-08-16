@@ -44,3 +44,5 @@ SpringBootTest10：spring boot整合spring security
 SpringBootTest11：spring boot整合redis开发
 
 SpringBootTest12：spring boot直接使用html页面，使用js填充前台数据
+
+SpringBootTest13：spring boot整合spring data jpa 自定义BaseRepository接口测试
