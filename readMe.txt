@@ -48,3 +48,5 @@ SpringBootTest12：spring boot直接使用html页面，使用js填充前台数�
 SpringBootTest13：spring boot整合spring data jpa 自定义BaseRepository接口测试
 
 spring-boot-jpa-test： spring boot测试jpa的双向一对多/双向多对多关联
+
+spring-boot-redis：spring boot测试redis配置和使用
