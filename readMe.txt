@@ -50,3 +50,5 @@ SpringBootTest13：spring boot整合spring data jpa 自定义BaseRepository接�
 spring-boot-jpa-test： spring boot测试jpa的双向一对多/双向多对多关联
 
 spring-boot-redis：spring boot测试redis配置和使用
+
+spring-boot-shiro：spring boot整个shiro测试
