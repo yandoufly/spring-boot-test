@@ -15,6 +15,30 @@ public class TestOne2Many {
 	
 	@Autowired
 	private CustomerService customerService;
+
+	/**
+	 * 异常：detached entity passed to persist: com.yjy.one2many.domain.Order
+	 * 说明：当N端设置了id，而1端不设置id，通过保存1端时会抛出该异常
+	 * 解决：1）双方都不设置Id；2）1端也设置id
+	 * 方式二中会先去数据库查询有没有该customer记录和order记录，无则插入；因此会发送三条select语句和三条insert语句
+	 */
+	@Test
+	public void testSave3() {
+		Order o1 = new Order();
+		o1.setId(1);
+		o1.setName("o1");
+		Order o2 = new Order();
+		o2.setId(2);
+		o2.setName("o2");
+		
+		Customer c = new Customer();
+		c.setId(1); //一开始先不加
+		c.setName("Customer1");
+		
+		c.getOrders().add(o1);
+		c.getOrders().add(o2);
+		customerDao.save(c);
+	}
 	
 	/**
 	 * 生成的数据：
