@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8"/>
+    <title>主页</title>
+</head>
+<body>
+<a href="/loginPage">login</a>
+<p shiro:hasPermission="admin">
+	测试授权！！
+</p>
+<p shiro:hasPermission="user1add">
+	测试授权！！
+</p>
+</body>
+</html>

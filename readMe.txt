@@ -52,3 +52,4 @@ spring-boot-jpa-test： spring boot测试jpa的双向一对多/双向多对多�
 spring-boot-redis：spring boot测试redis配置和使用
 
 spring-boot-shiro：spring boot整个shiro测试
+spring-boot-shiro：spring boot整个shiro、ehcache缓存测试
